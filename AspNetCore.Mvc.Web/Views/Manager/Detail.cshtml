@@ -1,0 +1,119 @@
+﻿
+@{
+    var roleList = ViewData["baseRoleList"] as IEnumerable<SelectListItem>;
+    var titleName = "管理员详情";
+    Layout = "~/Views/Layout/Index.cshtml";
+    var editModel = ViewData["editModel"] as ManagerModel;
+    editModel = editModel == null ? new ManagerModel() : editModel;
+    titleName = editModel == new ManagerModel() ? "新增管理员" : editModel.ManagerName + "-管理员详情";
+    ViewData["Title"] = titleName;
+
+}
+@using AspNetCore.Mvc.Entities;
+@using AspNetCore.Mvc.Utils;
+@using static AspNetCore.Mvc.Utils.Enum.EnumStatus;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="content-wrapper">
+    <section class="content">
+        <div class="box">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">编辑管理员</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <a href="/backstage/manager/index.html" class="btn btn-info">返回列表页</a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#Info" data-toggle="tab">
+                                        基本信息
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="Info">
+                                    <form class="gvcms-form">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">管理角色组<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <select name="ManagerRoleId" class="form-control select-select2" asp-items="@(roleList)" asp-for="@(editModel.ManagerRoleId)">
+                                                        <option value="0">==请选择==</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">是否启用<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <select class="form-control select-choose" asp-for="@(editModel.ManagerStatus)" name="ManagerStatus" asp-items="@(Html.GetEnumSelectList(typeof(Status)))"></select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label for="" class="col-sm-2 control-label">管理用户名称<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" datatype="*2-20" sucmsg="" name="ManagerName" class="form-control" placeholder="管理用户名称" value="@(editModel==null?"":editModel.ManagerName)">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">登录密码<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="password" datatype="*6-20" sucmsg="" name="ManagerPass" class="form-control" placeholder="管理登录密码" value="@(editModel==null?"":editModel.ManagerPass)">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">确认密码<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="password" datatype="*6-20" sucmsg="" name="ManagerREPass" class="form-control" placeholder="确认密码" value="@(editModel==null?"":editModel.ManagerPass)">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-footer">
+                                            <input type="hidden" name="ManagerId" value="@(editModel==null?0:editModel.ManagerId)" />
+                                            <button type="reset" class="btn btn-default">重置</button>
+                                            <input type="button" class="btn btn-info" onclick="api.managerEdit(this)" value="提交保存" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

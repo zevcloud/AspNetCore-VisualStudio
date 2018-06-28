@@ -1,0 +1,63 @@
+﻿/*封住背景层，让页面操作无法继续点击*/
+.pro-zc-bg {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: move;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    background-color: #fff;
+    z-index: 2147483647;
+}
+
+/*登录页=>滑动*/
+.bar {
+    height: 40px;
+    width: 100%;
+}
+
+#slide_box {
+    width: 100%;
+    height: 42px;
+    text-align: center;
+    line-height: 42px;
+    font-size: 14px;
+    color: #717171;
+    background-color: #e8e8e8;
+    border: none;
+    margin-bottom: 20px;
+}
+
+#slide_xbox {
+    width: 50px;
+    height: 42px;
+    text-align: center;
+    line-height: 42px;
+    font-size: 16px;
+    color: #fff;
+    position: absolute;
+    background: #35b34a;
+}
+
+#btn {
+    cursor: pointer;
+    width: 50px;
+    height: 42px;
+    background-color: #fff;
+    float: right;
+    -webkit-box-shadow: 0px 0px 15px 0px #ddd;
+    -moz-box-shadow: 0px 0px 15px 0px #ddd;
+    box-shadow: 0px 0px 15px 0px #ddd;
+    color: #8a8c97;
+}
+
+    #btn > .iconfont {
+        font-size: 20px;
+    }
+
+.box-notborder {
+    border: 0px;
+}

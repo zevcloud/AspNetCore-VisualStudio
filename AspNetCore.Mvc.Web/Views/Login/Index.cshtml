@@ -1,0 +1,97 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录-网站管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/lib/dist/css/AdminLTE.min.css" rel="stylesheet" />
+    <link href="/lib/common/css/style.css" rel="stylesheet" />
+    <script src="/lib/jQuery/jquery-1.9.1.min.js"></script>
+    <link href="/lib/lock/iconfont.css" rel="stylesheet" />
+    <script src="/lib/lock/lock.js"></script>
+
+
+</head>
+<body class="hold-transition login-page" style="height:auto;">
+    <div class="pro-zc-bg"></div>
+    <div class="login-box">
+        <div class="login-logo"><a href="javascript:;">后台管理系统</a></div>
+        <div class="login-box-body">
+            <p class="login-box-msg">请填写用户名密码登录系统</p>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="txtloginName" name="LoginName" asp-for="LoginName" placeholder="帐号">
+                <span class="glyphicon form-control-feedback fa fa-user fa-lg"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" id="txtloginPass" name="LoginPwd" placeholder="密码">
+                <span class="glyphicon form-control-feedback fa fa-lock fa-lg"></span>
+            </div>
+
+            <div class="form-group">
+                <div id="slide_box">
+                    <div id="slide_xbox" style="width: 50px;">
+                        <div id="btn">
+                            <i class="iconfont icon-double-right"></i>
+
+                        </div>
+                    </div>
+                    请按住滑块，拖动到最右边
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8"></div>
+                <div class="col-xs-4">
+                    <button type="button" onclick="clickLogin(this)" class="btn btn-primary btn-block btn-flat login" data-loading-text="&lt;i class='fa fa-spinner fa-spin '&gt;&lt;/i&gt; 登录">登录</button>
+                </div>
+            </div>
+
+            <input type="hidden" value="" name="loginRawUrlPath" />
+        </div>
+    </div>
+
+
+    <script>
+
+        function clickLogin(_this) {
+            var loginName = $("input[name='LoginName']").val();
+            var loginPwd = $("input[name='LoginPwd']").val();
+            var i = 1;
+            $.ajax({
+                url: "/api/views/login",
+                data: { "loginName": loginName, "loginPwd": loginPwd, "i": i },
+                dataType: "json",
+                type: "post",
+                beforeSend: function () {
+                    $(_this).attr("disabled", true);
+                    $(_this).text("登录中...");
+                    $(".pro-zc-bg").fadeIn(200);
+                },
+                success: function (_result) {
+                    if (_result.HttpCode == 1) {
+                        window.location.href = "/backstage/nav";  //先进入的是导航页面，后期加入首页
+                    }
+                    else {
+                        $("#code").trigger("click");
+                        alert(_result.Message);
+                        return false;
+                    }
+                }, error: function (xmlRequest) {
+                    console.log(xmlRequest.responseText);
+                    $("#code").trigger("click");
+                    alert("服务器开了个小差,请耐心等待一会儿~");
+                    return false;
+                }, complete: function () {
+                    $(_this).removeAttr("disabled", true);
+                    $(_this).text("登录");
+                    $(".pro-zc-bg").fadeOut(200);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

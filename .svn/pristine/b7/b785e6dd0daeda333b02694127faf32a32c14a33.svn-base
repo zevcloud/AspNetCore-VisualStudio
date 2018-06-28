@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "管理员列表";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="box">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">管理员列表</h3>
+                    <div class="box-tools pull-right">
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" onclick="window.location.href = '/backstage/manager/detail.html'">新增</button>
+                        <button type="button" class="btn btn-default group-list-all">全选</button>
+                        <button type="button" class="btn btn-default group-list-delete" onclick="api.ActionDeleteInfo(delete_key.ManagerKey,this,1)">删除</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th>选择</th>
+                                            <th>ID</th>
+                                            <th>管理员名称</th>
+                                            <th>添加时间</th>
+                                            <th>修改时间</th>
+                                            <th>登录次数</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody-table"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/html" id="manager_html">
+    {{if list==null||list.length===0}}
+    {{else}}
+    {{each list as item}}
+    <tr>
+        <td><input class="list-group-checked" type="checkbox" data-id="{{item.id}}" value="{{item.id}}" /></td>
+        <td>{{item.id}}</td>
+        <td>{{item.title}}</td>
+        <td>{{item.addTime}}</td>
+        <td>{{item.updateTime}}</td>
+        <td>{{item.loginCount}}</td>
+        <td>
+            <a class="btn btn-primary btn-xs" href="/backstage/manager/detail/{{item.id}}.html"><i class="fa fa-edit"></i> 编辑</a>
+            <a class="btn btn-danger btn-xs" href="javascript:;" onclick="api.SingleDelete(delete_key.ManagerKey,this)"><i class="fa fa-edit"></i> 删除</a>
+        </td>
+    </tr>
+    {{/each}}
+    {{/if}}
+</script>
+
+<script type="text/javascript">
+     @{
+      var json=ViewData["jsonData"].ToString();
+    }
+    window.onload = function () {
+        var $json = @(Html.Raw(json==""?"''":json));
+        var html = template("manager_html", { list: $json });
+        $(".tbody-table").empty().html(html);
+    }
+</script>

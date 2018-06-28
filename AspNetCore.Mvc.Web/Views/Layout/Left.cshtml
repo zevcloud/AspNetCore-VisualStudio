@@ -1,0 +1,53 @@
+﻿@using AspNetCore.Mvc.Entities;
+<div class="container-nav">
+    <aside class="main-sidebar scroll-content">
+        <section class="sidebar" style="height: auto;">
+            <ul class="sidebar-menu">
+                <li class="header">站点导航</li>
+                @{
+                    var data = ViewData["list"] as List<NavigationModel>;
+                    if (data != null)
+                    {
+                        foreach (var item in data)
+                        {
+                            <li class="treeview">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-dashboard"></i> <span>@(item.NavTitle)</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                @{
+                                    if (item.ActionList != null)
+                                    {
+                                        if (item.ActionList.Count > 0)
+                                        {
+                                            <ul class="treeview-menu menu-open" style="display: none;">
+                                                @{
+                                                    foreach (var parent in item.ActionList)
+                                                    {
+                                                        <li class="">
+                                                            <a href="index.html">
+                                                                <i class="fa fa-circle-o"></i>
+                                                                @(parent.NavTitle)
+                                                            </a>
+                                                        </li>
+                                                    }
+                                                }
+
+                                            </ul>
+                                        }
+                                    }
+                                }
+
+                            </li>
+                        }
+
+
+                    }
+                }
+            </ul>
+        </section>
+    </aside>
+</div>
+

@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewData["Title"] = "编辑导航";
+    Layout = "~/Views/Layout/Index.cshtml";
+    var editModel = ViewData["editModel"] as NavigationModel;
+    var navItems = ViewData["baseNavItems"] as IEnumerable<SelectListItem>;
+}
+@using AspNetCore.Mvc.Entities;
+@using static AspNetCore.Mvc.Utils.Enum.EnumStatus;
+@using static AspNetCore.Mvc.Utils.Enum.EnumYesNo;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="content-wrapper">
+    <section class="content">
+        <div class="box">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">编辑导航</h3>
+                </div>
+                <div class="box-body">
+                    <a href="/backstage/nav/index" class="btn btn-info">返回列表页</a>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <ul id="myTab" class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#Info" data-toggle="tab">
+                                        基本信息
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="Info">
+                                    <form class="gvcms-form">
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">父级分类<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <select name="NavParentId" class="form-control select-select2" asp-items="@(navItems)">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">是否启用<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <select asp-items="@(Html.GetEnumSelectList(typeof(Status)))" name="NavisLock" asp-for="@(editModel.NavisLock)" class="form-control select-choose"></select>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label for="" class="col-sm-2 control-label">导航名称<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="NavTitle" class="form-control" value="@(editModel == null ? "" : editModel.NavTitle)" />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">导航别名<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="NavIdent" sucmsg="" datatype="/^[a-zA-Z0-9\-\_]{2,50}$/" ajaxurl="/tools/AdminHandle.ashx?action=nav_ident&id=@(editModel==null?0:editModel.NavId)" class="form-control" value="@(editModel == null ? "" : editModel.NavIdent)" />
+                                                    <span class="Validform_checktip">请输入英文字母！</span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">导航链接<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="NavURL" class="form-control" value="@(editModel == null ? "" : editModel.NavURL)" />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">排序</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="NavSort" class="form-control" value="@(editModel == null ? 99 : editModel.NavSort)" />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">备注信息</label>
+                                                <div class="col-sm-7">
+                                                    <textarea name="NavRemark" class="form-control">
+                                                        @(editModel == null ? "" : editModel.NavRemark)
+                                                    </textarea>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">权限选择</label>
+                                                <div class="col-sm-7">
+                                                    <select name="navAction1" id="navAction1" class="select-choose form-control" multiple></select>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-body">
+                                            <div class="form-group ">
+                                                <label class="col-sm-2 control-label">是否为系统<i class="required-red">*</i></label>
+                                                <div class="col-sm-7">
+                                                    <select name="NavIsSys" asp-for="@(editModel.NavIsSys)" asp-items="@(Html.GetEnumSelectList(typeof(YesNo)))" class="form-control select-choose"></select>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="box-footer">
+                                            <input type="hidden" name="" value="@(editModel==null?0:editModel.NavId)" />
+                                            <button type="reset" class="btn btn-default">重置</button>
+                                            <input type="button" class="btn btn-info" onclick="api.SystemNavEdit(this)" value="提交保存" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
