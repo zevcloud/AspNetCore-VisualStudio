@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{999FEA05-1A6E-49F9-BB02-8C4B7732C2D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Mvc.Web", "AspNetCore.Mvc.Web\AspNetCore.Mvc.Web.csproj", "{89567CE2-8650-41E3-81EE-66BFA62BC28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Mvc.Web", "AspNetCore.Mvc.Web\AspNetCore.Mvc.Web.csproj", "{89567CE2-8650-41E3-81EE-66BFA62BC28A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{784502B7-9A11-4457-9975-A12EDE1794C7}"
 EndProject
@@ -13,13 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Context", "Context", "{0DF9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{2FB21F47-C28D-47A3-B8FB-07B3A322CAC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Mvc.Entities", "AspNetCore.Mvc.Entities\AspNetCore.Mvc.Entities.csproj", "{421893F3-6007-4F89-B1AC-09C1897890D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Mvc.Entities", "AspNetCore.Mvc.Entities\AspNetCore.Mvc.Entities.csproj", "{421893F3-6007-4F89-B1AC-09C1897890D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Mvc.Utils", "AspNetCore.MVC.Utils\AspNetCore.Mvc.Utils.csproj", "{348FC25C-E2EC-447C-B1C0-D2503E76EE3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Mvc.Utils", "AspNetCore.MVC.Utils\AspNetCore.Mvc.Utils.csproj", "{348FC25C-E2EC-447C-B1C0-D2503E76EE3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Mvc.Context", "AspNetCore.Mvc.Context\AspNetCore.Mvc.Context.csproj", "{7FFF2A59-1C51-481B-9AAC-028297F41DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Mvc.Context", "AspNetCore.Mvc.Context\AspNetCore.Mvc.Context.csproj", "{7FFF2A59-1C51-481B-9AAC-028297F41DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Mvc.Config", "AspNetCore.Mvc.Config\AspNetCore.Mvc.Config.csproj", "{53A74576-130E-405B-A19F-BBBDD3AEC7AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Mvc.Config", "AspNetCore.Mvc.Config\AspNetCore.Mvc.Config.csproj", "{53A74576-130E-405B-A19F-BBBDD3AEC7AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

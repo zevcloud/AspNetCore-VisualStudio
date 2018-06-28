@@ -18,6 +18,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyModel;
 using System.Runtime.Loader;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace AspNetCore.Mvc.Web
 {
@@ -78,8 +79,13 @@ namespace AspNetCore.Mvc.Web
 
             //注册上下文对象
             services.AddTransient<SqlSugarFactoryContext>();
+
+            //注册Session
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
+        #region  注册上下文，全局注入
         private Dictionary<Type, List<Type>> GetClassInterfacePairs(string assemblyName)
         {
             //存储 实现类 以及 对应接口 
@@ -118,6 +124,9 @@ namespace AspNetCore.Mvc.Web
         {
             return GetAllAssemblies().FirstOrDefault(assembly => assembly.FullName.Contains(assemblyName));
         }
+        #endregion
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -128,14 +137,19 @@ namespace AspNetCore.Mvc.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error");
                 app.UseHsts();
             }
+
+            app.UseExceptionHandler("/error");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            //启用Cookie会话
+            app.UseAuthentication();
+            //注册session
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -56,6 +56,20 @@ namespace AspNetCore.Mvc.Context
         }
         #endregion
 
-
+        #region 获取实体
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="id">主键参数ID</param>
+        /// <returns></returns>
+        public SystemOperLogModel GetSystemLogModel(int id)
+        {
+            using (var conn = SqlSugarConnection.GetSqlSugarClient())
+            {
+                var query = conn.Queryable<SystemOperLogModel>().Where(t => t.LogId == id).First();
+                return query;
+            }
+        }
+        #endregion
     }
 }

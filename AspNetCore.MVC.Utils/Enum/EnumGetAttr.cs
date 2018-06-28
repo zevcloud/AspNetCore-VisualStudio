@@ -16,7 +16,7 @@ namespace AspNetCore.Mvc.Utils.Enum
     public static class EnumGetAttr
     {
         /// <summary>
-        /// 获得枚举的displayName
+        /// 获得枚举的displayName=>类扩展
         /// </summary>
         /// <param name="eum"></param>
         /// <returns></returns>
@@ -27,6 +27,8 @@ namespace AspNetCore.Mvc.Utils.Enum
             var obj = (DisplayAttribute)field.GetCustomAttribute(typeof(DisplayAttribute));//得到特性
             return obj.Name ?? "";
         }
+
+        
 
     }
 }

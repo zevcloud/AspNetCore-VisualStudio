@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using AspNetCore.Mvc.Web.Methods;
 using AspNetCore.Mvc.Entities.Respone;
 using AspNetCore.Mvc.Utils.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace AspNetCore.Mvc.Web.Controllers
 {
@@ -35,16 +36,43 @@ namespace AspNetCore.Mvc.Web.Controllers
             var pageKeyword = keyword;
             var totalCount = 0;
             var pageList = _db.GetSystemLogDbList(pageIndex, pageSize, out totalCount, pageKeyword, operId);
-            string url = "/backstage/log/index?wd=" + pageKeyword + "&openId=" + operId + "&page={__id__}";
+            string url = "/log/index?keyword=" + pageKeyword + "&openId=" + operId + "&pageIndex={__id__}";
             ViewData["pageIndex"] = pageIndex;
             ViewData["pageSize"] = pageSize;
             ViewData["totalCount"] = totalCount;
             ViewData["pageUrl"] = url;
             ViewData["centSize"] = 5;
-            ViewBag.ContextPageList = pageList;
+            List<dynamic> dyList = new List<dynamic>();
+            foreach (var item in pageList)
+            {
+                var id = item.LogId;
+                var oper = ((EnumLog.Log)Enum.Parse(typeof(EnumLog.Log), item.LogOperId.ToString())).GetDisplayName();
+                var actionName = item.LogActionName;
+                var respone = ((EnumLog.Respone)Enum.Parse(typeof(EnumLog.Respone), item.LogResponeType.ToString())).GetDisplayName();
+                var time = item.LogDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+                dyList.Add(new { id, oper, actionName, respone, time });
+            }
+            var pageJson = Utils.Json.JsonUnits.ConvertJsonString(Utils.Json.JsonUnits.ToJSON(dyList));
+            ViewData["ContextPageList"] = pageJson;
             return View();
         }
 
+        /// <summary>
+        /// 获取日志详情
+        /// </summary>
+        /// <param name="id">主键</param>
+        /// <returns></returns>
+        public IActionResult Detail(int id = 0)
+        {
+            if (id == 0)
+            {
+                HttpContext.Session.SetObjectAsJson("error_log", "msg:" + DateTime.Now.ToString("yyyyMMddHH"));
+                throw new Exception("未找到匹配的日志信息");
+            }
+            var editModel = _db.GetSystemLogModel(id);
+            ViewData["editModel"] = editModel ?? throw new Exception("未找到匹配的日志信息");
+            return View();
+        }
 
         #region 不使用
         [Route("api/query/log")]

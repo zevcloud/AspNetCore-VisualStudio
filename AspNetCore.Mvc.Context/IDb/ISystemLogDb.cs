@@ -28,5 +28,12 @@ namespace AspNetCore.Mvc.Context.IDb
         /// </summary>
         /// <returns></returns>
         int DeleteLogInfo(List<int> deleteLogList);
+
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="id">主键参数ID</param>
+        /// <returns></returns>
+        SystemOperLogModel GetSystemLogModel(int id);
     }
 }

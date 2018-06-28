@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Layout/Index.cshtml";
+}
+<div class="content-wrapper">
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-red">ERROR!</h2>
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-red"></i>此时我们遇到了一些问题!</h3>
+                <div style="margin-bottom:10px;height:20px"></div>
+                <h3>
+                        @(ViewData["error"])            
+                </h3>
+            </div>
+        </div>
+    </section>
+</div>
+
